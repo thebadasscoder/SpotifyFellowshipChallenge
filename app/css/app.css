@@ -1,0 +1,29 @@
+div,html{
+	background-color: white;
+	font-family: 'Bebas Neue';
+/*	background : linear-gradient(to right, white 0%, white 50%, black 50%, black 100%);*/
+}
+div.container{
+	margin-top: 100px;
+	margin-left: 300px;
+}
+form{
+	margin-top: 30px;
+}
+h3.headingOne{
+margin-top: 60px;
+font-size: 35px;
+margin-left: -600px;
+}
+input.form-control{
+	width:230px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	margin-left: -600px
+/*	border-style: solid;
+	border-color: black;
+	border-width: medium;*/
+}
+input.btn.btn-success {
+	width:100px;
+	margin-left: -600px
+}

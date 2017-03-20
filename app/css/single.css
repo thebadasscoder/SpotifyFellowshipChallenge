@@ -1,0 +1,33 @@
+div.single{
+	margin-left:500px;
+	margin-top: 125px;
+	font-size: 21px;
+}
+
+div.recommend{
+	margin-left:-65px;
+}
+input.artist{
+	font-size: 17px;
+	width:200px;
+	padding-left: 0.5%;
+}
+
+input.song{
+	font-size: 17px;
+	width:200px;
+	padding-left: 0.5%;
+}
+
+button.btn.btn-danger{
+	height:30px;
+	margin-top:4px;
+}
+
+h3.editCity{
+
+}
+
+input.edit{
+	font-size:19px;
+}

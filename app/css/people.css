@@ -1,0 +1,42 @@
+body,html{
+	background-color: white;
+	font-family: 'Bebas Neue';
+/*	background : linear-gradient(to right, white 0%, white 50%, white 50%, white 100%);*/
+}
+
+h3.community{
+	margin-left:-930px;
+}
+button.add.btn.btn-default{
+	margin-left:-930px;
+	margin-top: 0px;
+	font-size: 25px;
+	line-height: 27px;
+}
+
+p#name{
+	margin-left: 0px;
+	font-size: medium;
+}
+p#city{
+	margin-left: 0px;
+	font-size: 35px;
+	margin-top : -23px;
+	padding-top: 10px;
+}
+
+a{
+	text-decoration: none;
+	color:black;
+}
+div.cities{
+	border-style: solid;
+	border-color: black;
+	height: 145px;
+	width: 180px;
+	padding: 20px;
+	margin-top: 20px;
+	border-width: medium;
+	background-color: white;
+}
+
