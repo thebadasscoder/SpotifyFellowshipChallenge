@@ -1,0 +1,8 @@
+{
+	"name": "SpotifyFellowshipChallenge",
+	"description": "Code Challenge 2017",
+	"repository": "https://github.com/twilsonpierce/SpotifyFellowshipChallenge",
+	"logo": "http://node-js-sample.herokuapp.com/node.svg",
+	"keywords":["node", "express", "static"],
+	"image": "heroku/nodejs"
+}
