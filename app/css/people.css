@@ -24,7 +24,6 @@ p#city{
 	margin-top : -23px;
 	padding-top: 10px;
 }
-
 a{
 	text-decoration: none;
 	color:black;
@@ -38,5 +37,9 @@ div.cities{
 	margin-top: 20px;
 	border-width: medium;
 	background-color: white;
+}
+
+p#refresh{
+	margin-left: 553px;
 }
 

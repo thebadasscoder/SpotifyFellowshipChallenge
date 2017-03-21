@@ -36949,6 +36949,7 @@
 			this.setState({ clicked: true });
 		},
 		render: function render() {
+			console.log('PROPS', this.props);
 			var displayPeople = this.state.people.map(function (val, indx) {
 				return _react2.default.createElement(
 					'div',
@@ -36977,7 +36978,16 @@
 				);
 			}
 			if (this.state.clicked) {
-				return _react2.default.createElement(_personForm2.default, null);
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(_personForm2.default, null),
+					_react2.default.createElement(
+						'p',
+						{ id: 'refresh' },
+						'Refresh Page'
+					)
+				);
 			} else {
 				return _react2.default.createElement(
 					'div',
@@ -37040,7 +37050,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body,html{\n\tbackground-color: white;\n\tfont-family: 'Bebas Neue';\n/*\tbackground : linear-gradient(to right, white 0%, white 50%, white 50%, white 100%);*/\n}\n\nh3.community{\n\tmargin-left:-930px;\n}\nbutton.add.btn.btn-default{\n\tmargin-left:-930px;\n\tmargin-top: 0px;\n\tfont-size: 25px;\n\tline-height: 27px;\n}\n\np#name{\n\tmargin-left: 0px;\n\tfont-size: medium;\n}\np#city{\n\tmargin-left: 0px;\n\tfont-size: 35px;\n\tmargin-top : -23px;\n\tpadding-top: 10px;\n}\n\na{\n\ttext-decoration: none;\n\tcolor:black;\n}\ndiv.cities{\n\tborder-style: solid;\n\tborder-color: black;\n\theight: 145px;\n\twidth: 180px;\n\tpadding: 20px;\n\tmargin-top: 20px;\n\tborder-width: medium;\n\tbackground-color: white;\n}\n\n", ""]);
+	exports.push([module.id, "body,html{\n\tbackground-color: white;\n\tfont-family: 'Bebas Neue';\n/*\tbackground : linear-gradient(to right, white 0%, white 50%, white 50%, white 100%);*/\n}\n\nh3.community{\n\tmargin-left:-930px;\n}\nbutton.add.btn.btn-default{\n\tmargin-left:-930px;\n\tmargin-top: 0px;\n\tfont-size: 25px;\n\tline-height: 27px;\n}\n\np#name{\n\tmargin-left: 0px;\n\tfont-size: medium;\n}\np#city{\n\tmargin-left: 0px;\n\tfont-size: 35px;\n\tmargin-top : -23px;\n\tpadding-top: 10px;\n}\na{\n\ttext-decoration: none;\n\tcolor:black;\n}\ndiv.cities{\n\tborder-style: solid;\n\tborder-color: black;\n\theight: 145px;\n\twidth: 180px;\n\tpadding: 20px;\n\tmargin-top: 20px;\n\tborder-width: medium;\n\tbackground-color: white;\n}\n\np#refresh{\n\tmargin-left: 553px;\n}\n\n", ""]);
 	
 	// exports
 
@@ -39515,7 +39525,7 @@
 	var SinglePerson = _react2.default.createClass({
 		displayName: 'SinglePerson',
 		getInitialState: function getInitialState() {
-			return { singles: [] };
+			return { singles: [], editing: false, favoriteCity: '' };
 		},
 		componentDidMount: function componentDidMount() {
 			var _this = this;
@@ -39530,6 +39540,7 @@
 			});
 		},
 		deletePerson: function deletePerson(e) {
+			_reactRouter.browserHistory.push('/community');
 			var ID = this.props.params.id;
 			_jquery2.default.ajax({
 				url: '/api/people/' + ID,
@@ -39539,96 +39550,107 @@
 				}
 			});
 		},
-		editPerson: function editPerson(e) {
+		editCity: function editCity(e) {
+			this.setState({ editing: true, favoriteCity: e.target.value });
+		},
+		updateCity: function updateCity(e) {
 			var ID = this.props.params.id;
 			_jquery2.default.ajax({
 				url: '/api/people/' + ID,
 				type: 'PUT',
+				data: this.state.favoriteCity,
 				success: function success(data) {
-					console.log('Sucessful Change!');
+					console.log('updated was made');
 				}
 			});
 		},
 		render: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ className: 'single' },
-				_react2.default.createElement(
-					'h1',
-					null,
-					this.state.singles.favoriteCity
-				),
-				_react2.default.createElement(
-					'h3',
-					null,
-					this.state.singles.name,
-					'\'s Playlist'
-				),
-				_react2.default.createElement(
-					'ol',
-					null,
-					_react2.default.createElement(
-						'li',
-						null,
-						'24k Magic  Bruno Mars'
-					),
-					_react2.default.createElement(
-						'li',
-						null,
-						'Side  Ariana Grande Ft Nicki Minaj'
-					),
-					_react2.default.createElement(
-						'li',
-						null,
-						'One Dance  Drake '
-					),
-					_react2.default.createElement(
-						'li',
-						null,
-						'Zero  Chris Brown '
-					),
-					_react2.default.createElement(
-						'li',
-						null,
-						'Last Friday Night  Katy Perry'
-					)
-				),
-				_react2.default.createElement(
-					'h3',
-					{ className: 'editCity' },
-					'Edit:'
-				),
-				_react2.default.createElement(
-					'form',
-					{ onSubmit: this.editPerson },
-					_react2.default.createElement('input', { type: 'text', className: 'edit', value: this.favoriteCity, onChange: this.cityChange, placeholder: 'Favorite City' }),
-					_react2.default.createElement('br', null),
-					_react2.default.createElement('input', { type: 'submit', className: 'btn btn-warning', value: 'Submit' })
-				),
-				_react2.default.createElement(
-					'button',
-					{ className: 'btn btn-danger', onClick: this.deletePerson },
-					'Delete'
-				),
-				_react2.default.createElement(
+			console.log('CITIES', this.state.favoriteCity);
+			if (this.state.editing) {
+				return _react2.default.createElement(
 					'div',
-					{ className: 'recommend' },
+					null,
+					_react2.default.createElement('input', { type: 'text', value: this.state.favoriteCity, onChange: this.editCity, placeholder: 'Enter Here' }),
+					_react2.default.createElement(
+						'button',
+						{ type: 'button', className: 'btn btn-default', onClick: this.updateCity },
+						'Save'
+					)
+				);
+			} else {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'single' },
+					_react2.default.createElement(
+						'h1',
+						null,
+						this.state.singles.favoriteCity
+					),
 					_react2.default.createElement(
 						'h3',
 						null,
-						'Recommend A Song:'
+						this.state.singles.name,
+						'\'s Playlist'
 					),
-					'Artist',
-					_react2.default.createElement('input', { className: 'artist', placeholder: 'enter here' }),
-					'  Song',
-					_react2.default.createElement('input', { className: 'song', placeholder: 'enter here' }),
+					_react2.default.createElement(
+						'ol',
+						null,
+						_react2.default.createElement(
+							'li',
+							null,
+							'24k Magic  Bruno Mars'
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Side  Ariana Grande Ft Nicki Minaj'
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'One Dance  Drake '
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Zero  Chris Brown '
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Last Friday Night  Katy Perry'
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'recommend' },
+						_react2.default.createElement(
+							'h3',
+							null,
+							'Recommend A Song:'
+						),
+						'Artist',
+						_react2.default.createElement('input', { className: 'artist', placeholder: 'enter here' }),
+						'Song',
+						_react2.default.createElement('input', { className: 'song', placeholder: 'enter here' }),
+						_react2.default.createElement(
+							'button',
+							{ type: 'button', className: 'btn btn-default' },
+							'Submit'
+						)
+					),
 					_react2.default.createElement(
 						'button',
-						{ type: 'button', className: 'btn btn-danger' },
-						'Submit'
+						{ type: 'button', className: 'btn btn-default edit', onClick: this.editCity },
+						'Edit'
+					),
+					_react2.default.createElement(
+						'button',
+						{ className: 'btn btn-danger', onClick: this.deletePerson },
+						'Delete'
 					)
-				)
-			);
+				);
+			}
 		}
 	});
 	
@@ -39669,7 +39691,7 @@
 	
 	
 	// module
-	exports.push([module.id, "div,html{\n\tbackground-color: white;\n\tfont-family: 'Bebas Neue';\n/*\tbackground : linear-gradient(to right, white 0%, white 50%, black 50%, black 100%);*/\n}\ndiv.container{\n\tmargin-top: 100px;\n\tmargin-left: 300px;\n}\nform{\n\tmargin-top: 30px;\n}\nh3.headingOne{\nmargin-top: 60px;\nfont-size: 35px;\nmargin-left: -600px;\n}\ninput.form-control{\n\twidth:230px;\n\tfont-family: 'Open Sans Condensed', sans-serif;\n\tmargin-left: -600px\n/*\tborder-style: solid;\n\tborder-color: black;\n\tborder-width: medium;*/\n}\ninput.btn.btn-success {\n\twidth:100px;\n\tmargin-left: -600px\n}\n", ""]);
+	exports.push([module.id, "div,html{\n\tbackground-color: white;\n\tfont-family: 'Bebas Neue';\n/*\tbackground : linear-gradient(to right, white 0%, white 50%, black 50%, black 100%);*/\n}\ndiv.container{\n\tmargin-top: 100px;\n\tmargin-left: 300px;\n}\nform{\n\tmargin-top: 30px;\n}\nh3.headingOne{\nmargin-top: 60px;\nfont-size: 35px;\nmargin-left: -600px;\n}\ninput.form-control{\n\twidth:230px;\n\tfont-family: 'Open Sans Condensed', sans-serif;\n\tmargin-left: -600px\n}\ninput.btn.btn-success {\n\twidth:100px;\n\tmargin-left: -600px\n}\n", ""]);
 	
 	// exports
 
@@ -39709,7 +39731,7 @@
 	
 	
 	// module
-	exports.push([module.id, "div.single{\n\tmargin-left:500px;\n\tmargin-top: 125px;\n\tfont-size: 21px;\n}\n\ndiv.recommend{\n\tmargin-left:-65px;\n}\ninput.artist{\n\tfont-size: 17px;\n\twidth:200px;\n\tpadding-left: 0.5%;\n}\n\ninput.song{\n\tfont-size: 17px;\n\twidth:200px;\n\tpadding-left: 0.5%;\n}\n\nbutton.btn.btn-danger{\n\theight:30px;\n\tmargin-top:4px;\n}\n\nh3.editCity{\n\n}\n\ninput.edit{\n\tfont-size:19px;\n}", ""]);
+	exports.push([module.id, "div.single{\n\tmargin-left:500px;\n\tmargin-top: 125px;\n\tfont-size: 21px;\n}\n\ndiv.recommend{\n\tmargin-left:-65px;\n}\ninput.artist{\n\tfont-size: 17px;\n\twidth:200px;\n\tpadding-left: 0.5%;\n}\n\ninput.song{\n\tfont-size: 17px;\n\twidth:200px;\n\tpadding-left: 0.5%;\n}\nbutton.btn.btn-default{\n\theight:30px;\n\tmargin-top:4px;\n}\n\nbutton.btn.btn-danger{\n\theight:30px;\n\tmargin-top:77px;\n\tmargin-left:-55px;\n}\n\nbutton.btn.btn-default.edit{\n\theight:30px;\n\twidth:54px;\n\tmargin-top:4px;\n}\n\ninput.edit{\n\tfont-size:19px;\n}", ""]);
 	
 	// exports
 

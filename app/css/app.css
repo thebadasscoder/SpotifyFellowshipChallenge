@@ -19,9 +19,6 @@ input.form-control{
 	width:230px;
 	font-family: 'Open Sans Condensed', sans-serif;
 	margin-left: -600px
-/*	border-style: solid;
-	border-color: black;
-	border-width: medium;*/
 }
 input.btn.btn-success {
 	width:100px;

@@ -41,7 +41,7 @@ const newPerson = (req,res)=>{
 const updateCity = (req,res)=>{
 	person.findById(req.params.id)
 	.then((person)=>{
-		person.update({favoriteCity: req.body.favoriteCity})
+		person.update({favoriteCity: req.body.city})
 	})
 	.catch((error)=>{
 		res.sendStatus(500);

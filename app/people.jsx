@@ -23,18 +23,22 @@ newestCity(e){
 	this.setState({clicked: true})
 },
 	render(){
+		console.log('PROPS', this.props)
 		let displayPeople = this.state.people.map((val,indx)=>{
 			return(
 				<div className="cities"key={indx}><Link className="ppl" to={"/people/" + val.id}><p id="city">{val.favoriteCity}</p><p id="name">{val.name}</p></Link></div>
-				)
+			)
 		})
 		if(!this.state.people){
 			return(<div> Still Waiting.....</div>)
 		}
 		if(this.state.clicked){
 			return(
+				<div>
 				<PersonForm/>
-				)
+				<p id="refresh">Refresh Page</p>
+				</div>
+			)
 		}
 		else{
 			return(

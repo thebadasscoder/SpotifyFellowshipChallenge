@@ -1,10 +1,10 @@
 import React from 'react';
 import $ from 'jquery';
-import {Link} from 'react-router';
+import {Link , browserHistory} from 'react-router';
 
 const SinglePerson = React.createClass({
 getInitialState(){
-	return({singles: []})
+	return({singles: [], editing: false, favoriteCity: ''})
 }, 
 componentDidMount(){
 	let ID = this.props.params.id;
@@ -17,6 +17,7 @@ componentDidMount(){
 	})
 },
 deletePerson(e){
+	browserHistory.push('/community');
 	let ID = this.props.params.id;
 	$.ajax({
 		url: '/api/people/' + ID,
@@ -26,18 +27,32 @@ deletePerson(e){
 		})
 	})
 },
-editPerson(e){
-	let ID = this.props.params.id;
+editCity(e){
+	this.setState({editing: true, favoriteCity: e.target.value})
+},
+updateCity(e){
+	let ID = this.props.params.id 
 	$.ajax({
-		url:'/api/people/' + ID,
-		type:'PUT',
-		success: ((data)=>{
-			console.log('Sucessful Change!')
+		url: '/api/people/' + ID,
+		type: 'PUT',
+		data: this.state.favoriteCity,
+		success:((data)=>{
+		console.log('updated was made')
 		})
 	})
 },
 	render(){
-			return(
+		console.log('CITIES', this.state.favoriteCity);
+	if(this.state.editing){
+		return(
+			<div>
+				<input type="text" value={this.state.favoriteCity} onChange={this.editCity} placeholder="Enter Here"></input>
+				<button type="button" className="btn btn-default" onClick={this.updateCity}>Save</button>
+			</div>
+		)
+	}
+	else{		
+		return(
 			<div className="single">	
 				<h1>{this.state.singles.favoriteCity}</h1>
 				<h3>{this.state.singles.name}'s Playlist</h3>
@@ -49,22 +64,16 @@ editPerson(e){
 						<li>Last Friday Night  Katy Perry</li>
 					</ol>
 
-					
-				<h3 className="editCity">Edit:</h3>
-				<form onSubmit={this.editPerson}>
-					<input type="text" className="edit"value={this.favoriteCity}onChange={this.cityChange}placeholder="Favorite City"></input><br/>
-					<input type="submit" className="btn btn-warning" value="Submit"/>
-				</form>
-				<button className="btn btn-danger" onClick={this.deletePerson}>Delete</button>
-
-
-				<div className="recommend">
+			<div className="recommend">
 				<h3>Recommend A Song:</h3>
-				Artist<input className="artist" placeholder="enter here"></input>  Song<input className="song"placeholder="enter here"></input>
-				<button type="button" className="btn btn-danger">Submit</button>
-				</div>
+				Artist<input className="artist" placeholder="enter here"></input>Song<input className="song"placeholder="enter here"></input>
+				<button type="button" className="btn btn-default">Submit</button>
+			</div>
+				<button type="button" className="btn btn-default edit" onClick={this.editCity}>Edit</button>
+				<button className="btn btn-danger" onClick={this.deletePerson}>Delete</button>
 			</div>
 		)
+		}
 	}
 })
 

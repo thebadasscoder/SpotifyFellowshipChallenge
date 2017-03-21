@@ -21,7 +21,7 @@ personSubmit(e){
 		type:'POST',
 		data: this.state
 	})
-	console.log('New Person Added!')
+		console.log('New Person Added!')
 },
 	render(){
 		return(

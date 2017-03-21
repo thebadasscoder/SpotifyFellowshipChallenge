@@ -18,14 +18,21 @@ input.song{
 	width:200px;
 	padding-left: 0.5%;
 }
-
-button.btn.btn-danger{
+button.btn.btn-default{
 	height:30px;
 	margin-top:4px;
 }
 
-h3.editCity{
+button.btn.btn-danger{
+	height:30px;
+	margin-top:77px;
+	margin-left:-55px;
+}
 
+button.btn.btn-default.edit{
+	height:30px;
+	width:54px;
+	margin-top:4px;
 }
 
 input.edit{
