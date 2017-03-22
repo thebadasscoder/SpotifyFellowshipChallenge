@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js & webpack --watch",
+    "start": "node server.js & webpack --watch",
     "test": "mocha --watch"
   },
   "repository": {
@@ -26,7 +26,6 @@
     "body-parser": "^1.15.2",
     "express": "^4.15.2",
     "jquery": "^3.1.1",
-    "nodemon": "^1.11.0",
     "pg": "^6.1.4",
     "pg-hstore": "^2.3.2",
     "react": "^15.4.1",

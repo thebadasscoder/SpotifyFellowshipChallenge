@@ -8,7 +8,7 @@ import css from './css/people.css';
 
 const People = React.createClass({
 getInitialState(){
-	return({people: [], clicked: false})
+	return({people: []})
 },
 componentDidMount(){
 	$.ajax({
@@ -19,9 +19,6 @@ componentDidMount(){
 		})
 	})
 },
-newestCity(e){
-	this.setState({clicked: true})
-},
 	render(){
 		console.log('PROPS', this.props)
 		let displayPeople = this.state.people.map((val,indx)=>{
@@ -31,15 +28,6 @@ newestCity(e){
 		})
 		if(!this.state.people){
 			return(<div> Still Waiting.....</div>)
-		}
-		if(this.state.clicked){
-			return(
-				<div>
-				<PersonForm/>
-				<p id="refresh">Refresh Page</p>
-				</div>
-			)
-		}
 		else{
 			return(
 			<div>
