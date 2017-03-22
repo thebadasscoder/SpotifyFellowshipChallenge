@@ -28,13 +28,13 @@ componentDidMount(){
 		})
 		if(!this.state.people){
 			return(<div> Still Waiting.....</div>)
+		}
 		else{
 			return(
 			<div>
 			<center>
 				<h3 className="community">Community</h3>
 				{displayPeople}
-			<button className="add btn btn-default" onClick={this.newestCity}>+</button>
 			</center>
 			</div>
 		)

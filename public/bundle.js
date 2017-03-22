@@ -36932,7 +36932,7 @@
 	var People = _react2.default.createClass({
 		displayName: 'People',
 		getInitialState: function getInitialState() {
-			return { people: [], clicked: false };
+			return { people: [] };
 		},
 		componentDidMount: function componentDidMount() {
 			var _this = this;
@@ -36944,9 +36944,6 @@
 					data ? _this.setState({ people: data }) : console.log('Error with people object');
 				}
 			});
-		},
-		newestCity: function newestCity(e) {
-			this.setState({ clicked: true });
 		},
 		render: function render() {
 			console.log('PROPS', this.props);
@@ -36976,18 +36973,6 @@
 					null,
 					' Still Waiting.....'
 				);
-			}
-			if (this.state.clicked) {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(_personForm2.default, null),
-					_react2.default.createElement(
-						'p',
-						{ id: 'refresh' },
-						'Refresh Page'
-					)
-				);
 			} else {
 				return _react2.default.createElement(
 					'div',
@@ -37000,12 +36985,7 @@
 							{ className: 'community' },
 							'Community'
 						),
-						displayPeople,
-						_react2.default.createElement(
-							'button',
-							{ className: 'add btn btn-default', onClick: this.newestCity },
-							'+'
-						)
+						displayPeople
 					)
 				);
 			}
